@@ -1,0 +1,7 @@
+@import "primeicons/primeicons.css";
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}

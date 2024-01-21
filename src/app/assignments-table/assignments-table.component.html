@@ -1,0 +1,55 @@
+<div class="button-container">
+    <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input type="number" pInputText [(ngModel)]="ID" (ngModelChange)="filterByID()"
+            placeholder="Filter by ID Assignment" />
+    </span>
+    <p-button (click)="navigateAssignmentsForm()" label="create assignment"></p-button>
+</div>
+
+<div>
+    <!-- Table to display tasks -->
+    <p-table [value]="tasks">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Task ID</th>
+                <th>Task Type</th>
+                <th pSortableColumn="name">Task Name<p-sortIcon></p-sortIcon>
+                </th>
+                <th>Description</th>
+                <th pSortableColumn="startDate">Start Date<p-sortIcon></p-sortIcon>
+                </th>
+                <th>End Date</th>
+                <th>Recurring</th>
+                <th>Completed</th>
+                <th>Action</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-task>
+            <tr>
+                <td>{{ task.id }}</td>
+                <td>{{ assignmentTypes[task.assignmentType] }}</td>
+                <td>{{ task.name }}</td>
+                <td>{{ task.description }}</td>
+                <td>{{ task.startDate | date:"dd MMM, yyyy"}}</td>
+                <td>{{ task.endDate?(task.endDate | date:"dd MMM, yyyy"):'---'}}</td>
+                <td>{{ task.isRecurring ? 'Yes' : 'No' }}</td>
+                <td>
+                    <p-checkbox [(ngModel)]="task.isCompleted" [binary]="true"
+                        (onChange)="UpdateAssignmentComplated(task)" [disabled]="task.isCompleted">
+                    </p-checkbox>
+                </td>
+                <td>
+                    <p-button (click)="deleteAssignment(task.id)" icon="pi pi-trash" severity="danger"></p-button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<!-- <p-paginator [first]="first" [rows]="rows" [totalRecords]="120"></p-paginator> -->
+<!-- <p-paginator (onPageChange)="onPageChange($any($event))" [first]="first" [rows]="rows" [totalRecords]="100">
+</p-paginator> -->
+
+<p-paginator (onPageChange)="onPageChange($any($event))" [rows]="rows" [totalRecords]="countRecords"
+    [pageLinkSize]="10"></p-paginator>

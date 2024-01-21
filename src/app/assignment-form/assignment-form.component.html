@@ -1,0 +1,57 @@
+<div class="center center-container">
+    <form [formGroup]="assignmentForm" (ngSubmit)="onSubmit()" class="card">
+        <h4>Create new assignment</h4>
+
+        <div class="p-field">
+            <label for="assignmentType">Assignment Type</label>
+            <p-dropdown formControlName="assignmentType" placeholder="select a type" [options]="assignmentTypes">
+            </p-dropdown>
+        </div>
+        <div class="alert" *ngIf="assignmentForm.controls['assignmentType'].touched &&
+        assignmentForm.controls['assignmentType'].errors">Type is required.</div>
+
+        <div class="p-field">
+            <label for="name">Name</label>
+            <input id="name" pInputText formControlName="name" placeholder="Name" />
+        </div>
+
+        <div class="alert" *ngIf="assignmentForm.controls['name'].touched &&
+        assignmentForm.controls['name'].errors">Name is required.</div>
+
+        <div class="p-field">
+            <label for="description">Description</label>
+            <input id="description" pInputText formControlName="description" placeholder="Description" />
+        </div>
+
+        <div class="p-field">
+            <label for="startDate">Start Date</label>
+            <p-calendar id="startDate" formControlName="startDate" [showIcon]="true"></p-calendar>
+        </div>
+        <div class="alert" *ngIf="assignmentForm.controls['startDate'].touched &&
+        assignmentForm.controls['startDate'].errors">Start date is required.</div>
+
+
+        <div class="p-field">
+            <label for="endDate">End Date</label>
+            <p-calendar id="endDate" formControlName="endDate" [showIcon]="true"></p-calendar>
+        </div>
+
+        <div class="p-field">
+            <p-checkbox id="isRecurring" formControlName="isRecurring" [binary]="true"></p-checkbox>
+            <label for="isRecurring">Is Recurring</label>
+        </div>
+
+        <div class="p-field">
+            <p-checkbox id="isCompleted" formControlName="isCompleted" [binary]="true"></p-checkbox>
+            <label for="isCompleted">Is Completed</label>
+
+        </div>
+
+        <div class="p-field">
+            <button pButton type="submit" label="Submit" [disabled]="assignmentForm.invalid"></button>
+        </div>
+    </form>
+</div>
+<div class="center">
+    <p-button (click)="navigateAssignmentsTable()" label="to all assignments"></p-button>
+</div>
